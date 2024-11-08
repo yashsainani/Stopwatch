@@ -1,3 +1,6 @@
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
+const reset = document.getElementById('reset');
 const hours = document.getElementById('hours');
 const minutes = document.getElementById('minutes');
 const seconds = document.getElementById('seconds');
@@ -7,7 +10,6 @@ const lap = document.getElementById('lap');
 const lapDiv = document.querySelector('.lap-div');
 milliSeconds.style.display = 'none';
 dot.style.display = 'none';
-lap.disabled = true;
 let h = 0;
 let m = 0;
 let s = 0;
@@ -15,8 +17,15 @@ let ms = 0;
 let toStop;
 let lapper = [];
 
-document.getElementById('start').addEventListener('click', () => {
-    document.getElementById('start').disabled = true;
+start.addEventListener('click', () => {
+    start.disabled = true;
+    start.classList.add('start');
+    stop.disabled = false;
+    stop.classList.add('stop');
+    reset.disabled = false;
+    reset.classList.add('reset');
+    lap.disabled = false;
+    lap.classList.add('lap');
     toStop = setInterval(() => {
         milliSeconds.style.display = 'inline-block';
         dot.style.display = 'inline-block';
@@ -37,16 +46,18 @@ document.getElementById('start').addEventListener('click', () => {
         minutes.innerText = m < 10 ? `0${m}` : m;
         seconds.innerText = s < 10 ? `0${s}` : s;
         milliSeconds.innerText = ms < 10 ? `0${ms}` : ms;
-        lap.disabled = false;
     }, 10);
 });
 
-document.getElementById('stop').addEventListener('click', () => {
+stop.addEventListener('click', () => {
     clearInterval(toStop);
-    document.getElementById('start').disabled = false;
+    start.disabled = false;
+    start.classList.remove('start');
+    stop.disabled = true;
+    stop.classList.remove('stop');
 });
 
-document.getElementById('reset').addEventListener('click', () => {
+reset.addEventListener('click', () => {
     h = 0;
     m = 0;
     s = 0;
@@ -58,10 +69,14 @@ document.getElementById('reset').addEventListener('click', () => {
     seconds.innerText = '00';
     milliSeconds.innerText = '00';
     clearInterval(toStop);
-    document.getElementById('start').disabled = false;
+    start.disabled = false;
+    start.classList.remove('start');
     lapDiv.innerHTML = "";
     lapper = [];
     lap.disabled = true;
+    lap.classList.remove('lap');
+    reset.disabled = true;
+    reset.classList.remove('reset');
 });
 
 lap.addEventListener('click', () => {
