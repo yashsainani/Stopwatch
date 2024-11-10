@@ -89,17 +89,21 @@ lap.addEventListener('click', () => {
     lapper.push(obj);
     lapDiv.innerHTML = "";
     lapper.forEach((ele, idx) => {
+        let hr = ele.hour < 10 ? `0${ele.hour}` : ele.hour;
+        let mi = ele.minute < 10 ? `0${ele.minute}` : ele.minute;
+        let se = ele.second < 10 ? `0${ele.second}` : ele.second;
+        let millis = ele.milliSecond < 10 ? `0${ele.milliSecond}` : ele.milliSecond;
         let div = `
             <div class="laps">
                 <span>${idx + 1}</span>
                 <div class="lap-time">
-                    <span>${ele.hour}</span>
+                    <span>${hr}</span>
                     <span>:</span>
-                    <span>${ele.minute}</span>
+                    <span>${mi}</span>
                     <span>:</span>
-                    <span>${ele.second}</span>
+                    <span>${se}</span>
                     <span>:</span>
-                    <span>${ele.milliSecond}</span>
+                    <span>${millis}</span>
                 </div>
             </div>    
         `;
